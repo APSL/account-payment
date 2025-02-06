@@ -3,16 +3,17 @@ from odoo.tests import TransactionCase, tagged
 
 @tagged("post_install", "-at_install")
 class TestPaymentAcquirer(TransactionCase):
-    def setUp(self) -> None:
-        super(TestPaymentAcquirer, self).setUp()
-        self.invoice_test_1 = self.env.ref("l10n_generic_coa.demo_invoice_followup")
-        self.order_test_1 = self.env.ref("sale.sale_order_7")
-        self.res_partner_deco = self.env.ref("base.res_partner_2")
-        self.res_partner_gemini = self.env.ref("base.res_partner_3")
-        self.acquirers_list = list(
-            self.env["payment.acquirer"].search([("state", "in", ["enabled", "test"])])
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.invoice_test_1 = cls.env.ref("account.1_demo_invoice_followup")
+        cls.order_test_1 = cls.env.ref("sale.sale_order_7")
+        cls.res_partner_deco = cls.env.ref("base.res_partner_2")
+        cls.res_partner_gemini = cls.env.ref("base.res_partner_3")
+        cls.acquirers_list = list(
+            cls.env["payment.acquirer"].search([("state", "in", ["enabled", "test"])])
         )
-        self.wire_transfer = self.env.ref("payment.payment_acquirer_transfer")
+        cls.wire_transfer = cls.env.ref("payment.payment_acquirer_transfer")
 
     def test_get_allowed_acquirers(self):
         payment_acquirer_obj = self.env["payment.acquirer"]

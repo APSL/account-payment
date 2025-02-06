@@ -1,1 +1,1 @@
-This module allows to restrict payment acquirers for partner. Only selected acquirers will be available for online payment in portal.
+This module allows restricting payment acquirers for a partner. Only selected acquirers will be available for online payments in the portal.
